@@ -7,7 +7,7 @@ services:
     ports:
       - "8642:8642"
     volumes:
-      - hermes-data:/opt/data
+      - ./data:/opt/data
     environment:
       HERMES_UID: ${HERMES_UID:-1000}
       HERMES_GID: ${HERMES_GID:-1000}
@@ -43,6 +43,3 @@ services:
       # MATRIX_AUTO_THREAD: "true"        # auto-create threads per response
       # MATRIX_REACTIONS: "true"          # emoji reactions during processing
 
-volumes:
-  hermes-data:
-    driver: local
