@@ -1,0 +1,9 @@
+model:
+  provider: my-anthropic
+  default: claude-sonnet-4-6
+
+custom_providers:
+  - name: my-anthropic
+    base_url: https://crs.ebbworks.cc/api
+    api_key: ""                                   # leave empty to use ANTHROPIC_API_KEY from .env
+    api_mode: anthropic
