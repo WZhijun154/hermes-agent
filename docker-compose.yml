@@ -4,6 +4,8 @@ services:
     container_name: hermes-gateway
     restart: unless-stopped
     command: ["gateway", "start"]
+    ports:
+      - "8642:8642"
     volumes:
       - hermes-data:/opt/data
     environment:
@@ -17,6 +19,10 @@ services:
       # Optional tool API keys
       EXA_API_KEY: ${EXA_API_KEY:-}
       FIRECRAWL_API_KEY: ${FIRECRAWL_API_KEY:-}
+      # --- Web dashboard ---
+      API_SERVER_ENABLED: "true"
+      API_SERVER_HOST: "0.0.0.0"
+      API_SERVER_KEY: ${API_SERVER_KEY}
       # --- Matrix ---
       # Homeserver URL (no trailing slash)
       MATRIX_HOMESERVER: ${MATRIX_HOMESERVER:-}
