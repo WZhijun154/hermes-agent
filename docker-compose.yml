@@ -1,0 +1,42 @@
+services:
+  hermes-gateway:
+    image: nousresearch/hermes-agent:v2026.4.16
+    container_name: hermes-gateway
+    restart: unless-stopped
+    command: ["gateway", "start"]
+    volumes:
+      - hermes-data:/opt/data
+    environment:
+      HERMES_UID: ${HERMES_UID:-1000}
+      HERMES_GID: ${HERMES_GID:-1000}
+      # LLM provider keys — set at least one
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
+      # Optional tool API keys
+      EXA_API_KEY: ${EXA_API_KEY:-}
+      FIRECRAWL_API_KEY: ${FIRECRAWL_API_KEY:-}
+      # --- Matrix ---
+      # Homeserver URL (no trailing slash)
+      MATRIX_HOMESERVER: ${MATRIX_HOMESERVER:-}
+      # Auth: access token (recommended) OR user+password
+      MATRIX_ACCESS_TOKEN: ${MATRIX_ACCESS_TOKEN:-}
+      # MATRIX_USER_ID: ${MATRIX_USER_ID:-}     # e.g. @hermes:matrix.example.org
+      # MATRIX_PASSWORD: ${MATRIX_PASSWORD:-}   # alternative to access token
+      # Security: comma-separated list of allowed Matrix user IDs
+      MATRIX_ALLOWED_USERS: ${MATRIX_ALLOWED_USERS:-}
+      # End-to-end encryption (requires libolm — included in the Linux image)
+      MATRIX_ENCRYPTION: ${MATRIX_ENCRYPTION:-false}
+      # Optional: recovery key for cross-signing verification (Element users)
+      # MATRIX_RECOVERY_KEY: ${MATRIX_RECOVERY_KEY:-}
+      # Optional: home room for proactive messages / cron output
+      # MATRIX_HOME_ROOM: ${MATRIX_HOME_ROOM:-}
+      # Behavior tuning (all optional, shown with defaults)
+      # MATRIX_REQUIRE_MENTION: "true"    # require @mention in rooms
+      # MATRIX_AUTO_THREAD: "true"        # auto-create threads per response
+      # MATRIX_REACTIONS: "true"          # emoji reactions during processing
+
+volumes:
+  hermes-data:
+    driver: local
